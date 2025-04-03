@@ -2,21 +2,18 @@ const renderCalender = () => {
     month = JSON.parse(localStorage.getItem("monthName"));
     console.log(month);
 
-    const main = document.querySelector(".main");
-
     const nameMonth = document.createElement("h3");
     nameMonth.textContent = month.name;
     const header = document.createElement("div");
     renderHeader(header);
     header.className = "header";
 
-    const calender = document.createElement("div");
-    calender.className = "calender";
+    const calender = document.querySelector(".calender");
+
     const divDays = document.createElement("div");
     divDays.className = "div-days";
 
     calender.append(nameMonth, header, divDays);
-    main.append(calender);
 
     month.monthDay.forEach((x) => {
         const day = document.createElement("div");

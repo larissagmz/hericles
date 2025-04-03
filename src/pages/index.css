@@ -45,32 +45,40 @@ table {
 .div-days{
         display: flex;
         flex-wrap: wrap;
-
         width: 100%;
 }
 
 .calender{
-    width: 400px;
+    width: 629px;
+    height: 456px;
     cursor: pointer;
     text-align: center;
     background-color: #E0E0E0;
     border-radius: 10px;
+
 }
 
 .day{
-    width: 57px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 85.7px;
     text-align: center;
-    font-size: 1.5rem;
-    height: 40px;
- 
+    font-size: 2rem;
+    height: 70px;
+    border: 2px solid black;
+
 }
 
 .main{
+   display: flex;
+   justify-content: space-between;
+}
+
+.section-calender{
     display: flex;
-    flex-wrap: wrap;
-    gap: 116px;
+    gap: 10px;
     width: 100%;
-    justify-content: center;
 }
 
 .container{
