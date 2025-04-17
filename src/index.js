@@ -185,10 +185,10 @@ function intervalo(datas) {
     return resultado;
 }
 
-const getYear = () => {
+const getYear = (year) => {
     var datas = {
-        inicio: new Date(2022, 0, 28, 15, 0, 0, 0),
-        fim: new Date(2022, 11, 1, 15, 0, 0, 0),
+        inicio: new Date(year, 0, 28, 15, 0, 0, 0),
+        fim: new Date(year, 11, 1, 15, 0, 0, 0),
     };
     var calendario = intervalo(datas);
     var nomes = [
@@ -238,13 +238,10 @@ const getYear = () => {
             array_calendario.push(("0" + i).slice(-2));
         }
 
-        for (let i = 0; i < acrescimo_fim; i++) {
-            array_calendario.push("--");
-        }
-
         let teste = {
             name: nomes[x],
             monthDay: array_calendario,
+            event: [],
         };
         fulYearArray.push(teste);
     }
@@ -254,9 +251,10 @@ const getYear = () => {
     return fulYearArray;
 };
 
-const renderCalender = () => {
-    const months = getYear();
+const renderCalender = (year) => {
+    const months = getYear(year);
     const main = document.querySelector(".main");
+    main.innerHTML = "";
     months.forEach((m) => {
         console.log(m);
         const nameMonth = document.createElement("h3");
@@ -272,8 +270,11 @@ const renderCalender = () => {
 
         calender.append(nameMonth, header, divDays);
         main.append(calender);
+        console.log(m);
+
         calender.addEventListener("click", (e) => {
             localStorage.setItem("monthName", JSON.stringify(m));
+
             window.location = "./pages/calender.html";
         });
 
@@ -297,4 +298,19 @@ const renderHeader = (header) => {
     });
 };
 
+const handleYearsSelect = () => {
+    const select = document.querySelector("#years");
+    let yearValue = 2025;
+    const h1 = document.querySelector("h1");
+    h1.innerText = yearValue;
+    renderCalender(yearValue);
+    select.addEventListener("change", (e) => {
+        const selectedValue = e.target.value;
+        yearValue = selectedValue;
+        renderCalender(yearValue);
+        h1.innerText = yearValue;
+    });
+};
+
 renderCalender();
+handleYearsSelect();

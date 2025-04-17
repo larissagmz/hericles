@@ -67,8 +67,18 @@ table {
     font-size: 2rem;
     height: 70px;
     border: 2px solid black;
-
+    cursor: pointer;
+    
 }
+
+.day:hover{
+    border: 2px solid yellow;
+}
+
+.disabled{
+    pointer-events: none;
+}
+
 
 .main{
    display: flex;
@@ -78,7 +88,7 @@ table {
 .section-calender{
     display: flex;
     gap: 10px;
-    width: 100%;
+    width: 90%;
 }
 
 .container{
@@ -121,12 +131,83 @@ p{
     font-weight: 700;
 }
 
-section{
-    display: flex;
-    width: 500px;
-}
+
 
 .seta{
     height: 30px;
 
+}
+
+.table-container {
+    width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.table-header {
+    display: flex;
+    align-items: center;
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+}
+.table-header span {
+    flex: 1;
+    font-weight: bold;
+}
+.arrow {
+    transition: transform 0.3s ease;
+}
+.rotated {
+    transform: rotate(90deg);
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+thead {
+    background-color: #4caf50;
+    color: #fff;
+}
+thead th {
+    padding: 8px;
+}
+tbody td {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+#tableRowsWrapper {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+
+#tableRowsWrapper.show {
+    max-height: 500px;
+}
+
+.button-edit{
+    background-color: #1B5E20;
+}
+.div-description{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 750px;
+}
+
+.button-edit-active{
+    background-color: #ccc;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    background-color: #ccc;
+    height: 200px;
+    gap: 25px;
 }

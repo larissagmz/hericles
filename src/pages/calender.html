@@ -20,9 +20,37 @@
                 <button class="seta">seta</button>
             </section>
             <section>
-                <div>
+                <div class="div-description">
                     <button>Voltar</button>
-                    <button>Editar</button>
+                    <button class="button-edit">Editar</button>
+                    <div class="table-container">
+                        <div class="table-header" onclick="toggleRows()">
+                            <span>Tabela de Atividades</span>
+                            <svg
+                                class="arrow"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                            >
+                                <path fill="#fff" d="M8 5l8 7-8 7z"></path>
+                            </svg>
+                        </div>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Dias</th>
+                                    <th>Descrição</th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                        <div id="tableRowsWrapper">
+                            <table>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>

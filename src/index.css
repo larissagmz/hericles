@@ -116,3 +116,8 @@ p{
 h3{
     font-size: 2rem;
 }
+
+.div-years{
+    display: flex;
+    gap: 15px;
+}
