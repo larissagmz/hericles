@@ -329,17 +329,33 @@ const handleYearsSelect = () => {
 
     selectMonth.addEventListener("change", (e) => {
         selectedValue = e.target.value;
-        currentIndex = 0;
-
+        const rightButton = document.querySelector(".right");
         localStorage.setItem("monthQuantity", selectedValue);
         if (!document.querySelector(".nav-button")) {
             renderButtonNextPage();
         }
+        if (Number(selectedValue) === 6 && currentIndex === 3) {
+            currentIndex = 0;
+        } else if (Number(selectedValue) === 6 && currentIndex === 9) {
+            currentIndex = 6;
+            rightButton.classList.add("hidden");
+        }
+
+        if (Number(selectedValue) === 3 && currentIndex === 6) {
+            if (rightButton.classList.contains("hidden")) {
+                rightButton.classList.remove("hidden");
+            }
+        }
+
         if (Number(selectedValue) === 12) {
+            currentIndex = 0;
             document
                 .querySelectorAll(".nav-button")
                 .forEach((btn) => btn.remove());
         }
+
+        console.log(currentIndex);
+
         renderCalender(yearValue, selectedValue);
     });
 };
@@ -376,7 +392,7 @@ const renderButtonNextPage = () => {
 
             if (
                 (currentIndex === 6 && Number(selectedValue) === 6) ||
-                currentIndex === 9
+                (currentIndex === 9 && Number(selectedValue) === 3)
             ) {
                 rightButton.classList.add("hidden");
             } else if (rightButton.classList.contains("hidden")) {
