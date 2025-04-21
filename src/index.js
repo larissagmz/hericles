@@ -251,12 +251,22 @@ const getYear = (year) => {
     return fulYearArray;
 };
 
-const renderCalender = (year) => {
+let currentIndex = 0;
+
+const renderCalender = (year, valueSelect) => {
     const months = getYear(year);
-    const main = document.querySelector(".main");
-    main.innerHTML = "";
-    months.forEach((m) => {
-        console.log(m);
+
+    const divCalender = document.querySelector(".div-calender");
+    divCalender.innerHTML = "";
+    const endIndex = Math.min(
+        currentIndex + Number(valueSelect),
+        months.length
+    );
+
+    const monthFiltered = months.slice(currentIndex, endIndex);
+    console.log(monthFiltered);
+
+    monthFiltered.forEach((m) => {
         const nameMonth = document.createElement("h3");
         nameMonth.textContent = m.name;
         const header = document.createElement("div");
@@ -269,8 +279,7 @@ const renderCalender = (year) => {
         divDays.className = "div-days";
 
         calender.append(nameMonth, header, divDays);
-        main.append(calender);
-        console.log(m);
+        divCalender.append(calender);
 
         calender.addEventListener("click", (e) => {
             localStorage.setItem("monthName", JSON.stringify(m));
@@ -297,20 +306,91 @@ const renderHeader = (header) => {
         header.append(dayWeek);
     });
 };
+let yearValue = 2025;
 
+let selectedValue = localStorage.getItem("monthQuantity") || 12;
 const handleYearsSelect = () => {
     const select = document.querySelector("#years");
-    let yearValue = 2025;
+    const selectMonth = document.querySelector("#select-quantity-month");
     const h1 = document.querySelector("h1");
+
     h1.innerText = yearValue;
-    renderCalender(yearValue);
+    renderCalender(yearValue, selectedValue);
+    localStorage.setItem("year", yearValue);
+    localStorage.setItem("monthQuantity", selectedValue);
+
     select.addEventListener("change", (e) => {
-        const selectedValue = e.target.value;
-        yearValue = selectedValue;
-        renderCalender(yearValue);
+        yearValue = e.target.value;
         h1.innerText = yearValue;
+        renderCalender(yearValue, selectedValue);
+
+        localStorage.setItem("year", yearValue);
+    });
+
+    selectMonth.addEventListener("change", (e) => {
+        selectedValue = e.target.value;
+        currentIndex = 0;
+
+        localStorage.setItem("monthQuantity", selectedValue);
+        if (!document.querySelector(".nav-button")) {
+            renderButtonNextPage();
+        }
+        if (Number(selectedValue) === 12) {
+            document
+                .querySelectorAll(".nav-button")
+                .forEach((btn) => btn.remove());
+        }
+        renderCalender(yearValue, selectedValue);
     });
 };
 
+const renderButtonNextPage = () => {
+    const leftButton = document.createElement("button");
+    leftButton.textContent = "←";
+    leftButton.className = "nav-button left";
+
+    const rightButton = document.createElement("button");
+    rightButton.textContent = "→";
+    rightButton.className = "nav-button right";
+
+    const main = document.querySelector(".main");
+
+    const targetDiv = main.querySelector("div");
+
+    if (targetDiv) {
+        main.insertBefore(rightButton, targetDiv.nextSibling);
+
+        main.insertBefore(leftButton, targetDiv);
+        leftButton.classList.add("hidden");
+    }
+
+    const button = document.querySelectorAll(".nav-button");
+    button.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            if (btn.classList.contains("right")) {
+                currentIndex += Number(localStorage.getItem("monthQuantity"));
+            } else {
+                currentIndex -= Number(localStorage.getItem("monthQuantity"));
+            }
+            leftButton.classList.remove("hidden");
+
+            if (
+                (currentIndex === 6 && Number(selectedValue) === 6) ||
+                currentIndex === 9
+            ) {
+                rightButton.classList.add("hidden");
+            } else if (rightButton.classList.contains("hidden")) {
+                rightButton.classList.remove("hidden");
+            }
+
+            if (currentIndex === 0) {
+                leftButton.classList.add("hidden");
+            }
+            renderCalender(yearValue, selectedValue);
+            console.log(currentIndex);
+            console.log(selectedValue);
+        });
+    });
+};
 renderCalender();
 handleYearsSelect();

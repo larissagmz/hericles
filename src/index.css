@@ -67,14 +67,22 @@ table {
 
 .main{
     display: flex;
+    gap: 50px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.div-calender{
+    display: flex;
     flex-wrap: wrap;
-    gap: 116px;
+    gap: 50px;
     width: 100%;
     justify-content: center;
 }
 
 .container{
-    width: 1700px;
+    width: 95%;
     margin: 0 auto;
 }
 
@@ -93,11 +101,11 @@ table {
 
 header{
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    
     background: linear-gradient(to right, #2E7D32, #1B5E20);
-    height: 112px;
-    gap: 20px;
+    height: 112px;  
     padding-top: 20px;
     margin-bottom: 61px;
     box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2);
@@ -120,4 +128,8 @@ h3{
 .div-years{
     display: flex;
     gap: 15px;
+}
+
+.hidden{
+    display: none;
 }

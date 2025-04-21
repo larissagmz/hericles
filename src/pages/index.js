@@ -147,6 +147,11 @@ const handleForm = (firstClick, secondClick) => {
             console.log(daysArray);
         }
 
+        month.event.sort((a, b) => {
+            const dayA = Array.isArray(a.day) ? a.day[0] : a.day;
+            const dayB = Array.isArray(b.day) ? b.day[0] : b.day;
+            return dayA - dayB;
+        });
         renderTableDescription(month.event);
 
         localStorage.setItem("monthName", JSON.stringify(month));
